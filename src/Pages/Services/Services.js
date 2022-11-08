@@ -1,33 +1,18 @@
 import { Button, Card } from 'flowbite-react';
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
-import doctor from '../../assets/doctor.png'
-import './Home.css'
-import { BsArrowRight } from "react-icons/bs";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import { Link, useLoaderData } from 'react-router-dom';
+import { BsArrowRight } from "react-icons/bs";
 
-const Home = () => {
-    const services = useLoaderData();
-
+const Services = () => {
+    const allServices = useLoaderData()
     return (
         <div>
-            <div className='bg-amber-50 flex flex-col lg:flex-row md:flex-row gap-4 p-10 mb-28'>
-                <div className=' w-1/2 my-auto lg:p-12'>
-                    <h2 className='text-7xl font-bold lg:px-10 font-mono text-start mx-auto lg:mx-0 text-slate-800'>Dr.Amy Farah Fowler</h2>
-                    <p className='text-justify lg:text-start lg:px-10 font-bold p-4 text-red-400'>Hematologist(Blood Specialist)</p>
-                    <p className='lg:text-start lg:px-10'>Dr. Amy Farah Fowler is a specialized Hematologist in United Kingdom. And one of the most
-                        sought after medical specialists in London, United Kingdom. The doctor has over 10 Years of experience and is associated with Cancer Centre London.</p>
-                </div>
-                <div className='lg:static my-auto'>
-                    <img className='lg:absolute lg:right-40 lg:top-20 img-size' src={doctor} alt="" />
-                </div>
-            </div>
             <div className='bg-slate-700 p-10 mb-28'>
-                <p className='text-3xl text-amber-100 font-serif font-bold'>Services Provided:</p>
+                <p className='text-3xl text-amber-100 font-serif font-bold'>All Services</p>
                 <div className='grid grid-cols-3 p-8 h-full gap-10'>
                     {
-                        services.map(service =>
+                        allServices.map(service =>
                             <div key={service._id}>
                                 <Card >
                                     <PhotoProvider>
@@ -63,7 +48,7 @@ const Home = () => {
                 </div>
                 <div >
                     <Button className='mx-auto ' color="warning">
-                        <Link to='/services' className='font-bold text-2xl'>See More</Link>
+                        <Link className='font-bold text-2xl'>See More</Link>
                     </Button>
                 </div>
             </div>
@@ -71,4 +56,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Services;
