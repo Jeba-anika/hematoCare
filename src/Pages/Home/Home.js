@@ -25,7 +25,7 @@ const Home = () => {
             </div>
             <div className='bg-slate-700 p-10 mb-28'>
                 <p className='text-3xl text-amber-100 font-serif font-bold'>Services Provided:</p>
-                <div className='grid grid-cols-3 p-8 h-full gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 h-full gap-10'>
                     {
                         services.map(service =>
                             <div key={service._id}>
@@ -48,13 +48,13 @@ const Home = () => {
                                         <p>Price: ${service.price}</p>
                                         <p>Rating: {service.rating}</p>
                                     </div>
-                                    <div className='justify-end'>
+                                    <div >
                                         <Button
 
                                             color="success"
                                             pill={true}
                                         >
-                                            View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight>
+                                            <Link to={`/services/${service._id}`} className='flex flex-row'> View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight></Link>
                                         </Button>
                                     </div>
                                 </Card>

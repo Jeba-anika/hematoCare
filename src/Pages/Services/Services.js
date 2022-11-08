@@ -10,7 +10,7 @@ const Services = () => {
         <div>
             <div className='bg-slate-700 p-10 mb-28'>
                 <p className='text-3xl text-amber-100 font-serif font-bold'>All Services</p>
-                <div className='grid grid-cols-3 p-8 h-full gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 h-full gap-10'>
                     {
                         allServices.map(service =>
                             <div key={service._id}>
@@ -35,21 +35,15 @@ const Services = () => {
                                     </div>
                                     <div className='justify-end'>
                                         <Button
-
                                             color="success"
                                             pill={true}
                                         >
-                                            View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight>
+                                           <Link to={`/services/${service._id}`} className='flex flex-row'> View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight></Link>
                                         </Button>
                                     </div>
                                 </Card>
                             </div>)
                     }
-                </div>
-                <div >
-                    <Button className='mx-auto ' color="warning">
-                        <Link className='font-bold text-2xl'>See More</Link>
-                    </Button>
                 </div>
             </div>
         </div>
