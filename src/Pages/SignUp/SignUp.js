@@ -1,19 +1,27 @@
 import { Button, Label, TextInput } from 'flowbite-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import login from '../../assets/login.png'
 
 import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const SignUp = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, resetField } = useForm();
+    const {createUser} = useContext(AuthContext)
 
     const handleSignUp = (data) => {
         console.log(data)
         const email = data.email;
         const password = data.password;
         console.log(email, password)
+        createUser(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error => console.error(error))
     }
 
     return (
