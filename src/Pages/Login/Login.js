@@ -6,10 +6,11 @@ import login from '../../assets/login.png'
 
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from '../../Contexts/AuthProvider';
+import { setAuthToken } from '../../API/auth';
 
 const Login = () => {
     const { register, handleSubmit, resetField } = useForm();
-    const {signIn} = useContext(AuthContext)
+    const {signIn, googleSignIn} = useContext(AuthContext)
 
     const handleLogin = (data) => {
         console.log(data)
@@ -22,8 +23,19 @@ const Login = () => {
             console.log(user)
             resetField('email')
             resetField('password')
+            setAuthToken(user)
         })
         .catch(error => console.error(error))
+    }
+
+
+    const handleGoogleSignIn = ()=>{
+        googleSignIn()
+        .then(result =>{
+            const user =result.user;
+            setAuthToken(user)
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -73,7 +85,7 @@ const Login = () => {
                 <hr className='w-1/2 mx-auto mt-3' />
                 <p className='font-bold mt-2 mb-2'>--Or Sign In with--</p>
                 <div className='mx-auto w-1/2 flex flex-col gap-4 md:flex-row md:gap-2 lg:gap-0 lg:flex-row justify-around'>
-                    <Button color="gray">
+                    <Button onClick={handleGoogleSignIn} color="gray">
                         <FaGoogle></FaGoogle><span className='ml-4'>Google</span>
                     </Button>
                     <Button color="gray">
