@@ -1,5 +1,5 @@
 import { Button, Label, Select, Textarea, TextInput } from 'flowbite-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
@@ -7,6 +7,7 @@ import { AuthContext } from '../../../Contexts/AuthProvider';
 const Reviews = ({ service }) => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, resetField } = useForm();
+    const [allReviews, setAllReviews] = useState([]);
 
 
     const handleReview = (data) => {
@@ -42,9 +43,24 @@ const Reviews = ({ service }) => {
 
     }
 
+    useEffect(()=>{
+        fetch(`https://hemato-care-server.vercel.app/reviews/${service._id}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            setAllReviews(data)
+        })
+    },[])
+
     return (
         <div>
-
+            <div>
+                {
+                    allReviews.map(data => <div>
+                        {data.review}
+                    </div>)
+                }
+            </div>
             {
                 user?.email ? <form onSubmit={handleSubmit(handleReview)} className="flex flex-col gap-4">
                     <div>
