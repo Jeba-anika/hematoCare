@@ -60,6 +60,7 @@ const Login = () => {
                                 />
                             </div>
                             <TextInput
+                            
                                 {...register('email')}
                                 id="email1"
                                 type="email"

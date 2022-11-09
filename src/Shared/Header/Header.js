@@ -39,7 +39,7 @@ const Header = () => {
                             <Dropdown
                                 arrowIcon={false}
                                 inline={true}
-                                label={<Avatar alt="User settings" img={user?.photoURL ? user?.photoURL : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} rounded={true} />}
+                                label={<Avatar alt="" img={user?.photoURL ? user?.photoURL : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} rounded={true} />}
                             >
                                 <Dropdown.Header>
                                     <span className="block text-sm">

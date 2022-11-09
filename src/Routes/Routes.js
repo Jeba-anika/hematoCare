@@ -33,7 +33,7 @@ export const routes = createBrowserRouter([
             {
                 path: '/services/:id',
                 element: <EachServicePage></EachServicePage>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://hemato-care-server.vercel.app/services/${params.id}`)
             },
             {
                 path: '/blogs',
