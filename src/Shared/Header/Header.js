@@ -73,8 +73,8 @@ const Header = () => {
                     </Navbar.Link>
                     {
                         user?.uid && <>
-                            <Navbar.Link href="/navbars">
-                                My Reviews
+                            <Navbar.Link >
+                                <Link to='/myreviews'>My Reviews</Link>
                             </Navbar.Link>
                             <Navbar.Link href="/navbars">
                                 Add Service

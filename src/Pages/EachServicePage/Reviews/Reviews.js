@@ -1,4 +1,4 @@
-import { Button, Label, Select, Textarea, TextInput } from 'flowbite-react';
+import { Avatar, Button, Label, Select, Textarea, TextInput } from 'flowbite-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -13,12 +13,14 @@ const Reviews = ({ service }) => {
     const handleReview = (data) => {
         console.log(data)
         const review = {
+            uid : user.uid,
             review: data.review,
             userName: data.name,
             userEmail: user.email,
             serviceId: service._id,
             serviceName: service.name,
-            rating: data.rating
+            rating: data.rating,
+            userPhoto : user?.photoURl ? user?.photoURl : "https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png"
 
         }
         console.log(review)
@@ -50,14 +52,25 @@ const Reviews = ({ service }) => {
             console.log(data);
             setAllReviews(data)
         })
-    },[])
+    },[allReviews])
 
     return (
         <div>
             <div>
                 {
-                    allReviews.map(data => <div>
-                        {data.review}
+                    allReviews.map(data => <div className='border rounded-xl p-8 mb-4'>
+                        <div className='flex flex-row'>
+                            <div>
+                                <Avatar img={data.userPhoto} rounded={true}></Avatar>
+                            </div>
+                            <div className='text-start ml-10'>
+                                <p className='text-xl font-serif font-bold'>{data.userName}</p>
+                                <p></p>
+                                <p>{data.userEmail}</p>
+                                <p className='font-bold'><span className='text-slate-700'>Rating Given:</span> <span className='text-green-400'>{data.rating}</span></p>
+                                <p className='pt-4 font-mono font-bold text-xl text-slate-700'>Comment: {data.review}</p>
+                            </div>
+                        </div>
                     </div>)
                 }
             </div>
