@@ -6,12 +6,15 @@ import './Home.css'
 import { BsArrowRight } from "react-icons/bs";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
+import { Helmet } from 'react-helmet-async';
+import { TitleChange } from '../../Title/ChangeTitle';
 
 const Home = () => {
     const services = useLoaderData();
 
     return (
         <div>
+            {TitleChange('Home')}
             <div className='bg-amber-50 flex flex-col lg:flex-row md:flex-row gap-4 p-10 mb-28'>
                 <div className=' w-1/2 my-auto lg:p-12'>
                     <h2 className='text-7xl font-bold lg:px-10 font-mono text-start mx-auto lg:mx-0 text-slate-800'>Dr.Amy Farah Fowler</h2>

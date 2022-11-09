@@ -3,11 +3,13 @@ import React from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Link, useLoaderData } from 'react-router-dom';
 import { BsArrowRight } from "react-icons/bs";
+import { TitleChange } from '../../Title/ChangeTitle';
 
 const Services = () => {
     const allServices = useLoaderData()
     return (
         <div>
+            {TitleChange('Services')}
             <div className='bg-slate-700 p-10 mb-28'>
                 <p className='text-3xl text-amber-100 font-serif font-bold'>All Services</p>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 h-full gap-10'>

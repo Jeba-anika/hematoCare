@@ -7,6 +7,7 @@ import login from '../../assets/login.png'
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { setAuthToken } from '../../API/auth';
+import { TitleChange } from '../../Title/ChangeTitle';
 
 const SignUp = () => {
     const { register, handleSubmit, resetField } = useForm();
@@ -40,6 +41,7 @@ const SignUp = () => {
 
     return (
         <div className='flex flex-col lg:flex-row md:flex-row mr-2 ml-2 md:mr-20 md:ml-20 lg:mr-40 lg:ml-40 mt-20 rounded-xl p-8 md:p-10 lg:p-20 '>
+            {TitleChange('SignUp')}
             <div className=''>
                 <img src={login} alt="" />
             </div>
