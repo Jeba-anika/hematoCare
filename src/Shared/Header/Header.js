@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <div >
             <Navbar
-                className='bg-amber-50'
+                className='bg-amber-100'
                 fluid={true}
                 rounded={true}
             >

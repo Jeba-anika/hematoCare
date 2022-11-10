@@ -1,17 +1,74 @@
 import { Button, Label, Textarea, TextInput } from 'flowbite-react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { TitleChange } from '../../Title/ChangeTitle';
 
 const AddService = () => {
     const { register, handleSubmit, resetField } = useForm();
+
+    const handleAddService = (data) => {
+        const { serviceName, servicePictureURL, servicePrice, serviceRating, company, email, phone, time, days, about, address } = data;
+        console.log(serviceName, servicePictureURL);
+        const service = {
+            picture: servicePictureURL,
+            price: servicePrice,
+            rating: serviceRating,
+            time: time,
+            days: days,
+            name : serviceName,
+            company:  company,
+            email: email,
+            phone: phone,
+            address: address,
+            about: about
+        }
+
+        fetch('https://hemato-care-server.vercel.app/services',{
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json',
+                authorization : `Bearer ${localStorage.getItem('user-token')}`
+            },
+            body: JSON.stringify(service)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.acknowledged){
+                toast('Service Added!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+                
+                resetField('serviceName')
+                resetField('servicePictureURL')
+                resetField('servicePrice')
+                resetField('serviceRating')
+                resetField('company')
+                resetField('email')
+                resetField('phone')
+                resetField('time')
+                resetField('days')
+                resetField('about')
+                resetField('address')
+            }
+        })
+    }
+
     return (
         <div className='mb-20'>
             {TitleChange('Add Service')}
             <h2 className='text-2xl font-serif font-bold mb-6'>Add a Service</h2>
-            <form onSubmit={handleSubmit()} className="flex flex-col gap-4 w-3/4 mx-auto py-8 border rounded-xl">
+            <form onSubmit={handleSubmit(handleAddService)} className="flex flex-col gap-4 lg:w-3/4 mx-auto py-8 border rounded-xl">
 
-                <div className='flex flex-row gap-8 w-3/4 mx-auto'>
+                <div className='lg:flex lg:flex-row lg:gap-8 w-3/4 mx-auto'>
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label
@@ -45,7 +102,7 @@ const AddService = () => {
                 </div>
 
 
-                <div className='flex flex-row gap-8 w-3/4 mx-auto'>
+                <div className='lg:flex lg:flex-row lg:gap-8 w-3/4 mx-auto'>
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label
@@ -78,7 +135,7 @@ const AddService = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-row gap-8 w-3/4 mx-auto'>
+                <div className='lg:flex lg:flex-row lg:gap-8 w-3/4 mx-auto'>
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label
@@ -113,7 +170,7 @@ const AddService = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-row gap-8 w-3/4 mx-auto'>
+                <div className='lg:flex lg:flex-row lg:gap-8 w-3/4 mx-auto'>
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label
@@ -147,7 +204,7 @@ const AddService = () => {
                 </div>
 
 
-                <div className='flex flex-row gap-8 w-3/4 mx-auto'>
+                <div className='lg:flex lg:flex-row lg:gap-8 w-3/4 mx-auto'>
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label
@@ -180,7 +237,7 @@ const AddService = () => {
                     </div>
                 </div>
                 <div className=' w-3/4 mx-auto'>
-                <div id="textarea">
+                    <div id="textarea">
                         <div className="mb-2 block text-start">
                             <Label
                                 htmlFor="about"
@@ -199,7 +256,7 @@ const AddService = () => {
 
 
 
-                <Button className='lg:w-1/2 lg:mx-auto md:w-1/2 md:mx-auto ' color='failure' pill={true} type="submit">
+                <Button className='w-3/4 lg:w-1/2 lg:mx-auto md:w-1/2 mx-auto ' color='failure' pill={true} type="submit">
                     Add Service
                 </Button>
             </form>

@@ -4,6 +4,7 @@ import { TitleChange } from '../../Title/ChangeTitle';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import { Table } from 'flowbite-react';
 import ReviewTableRow from './ReviewTableRow/ReviewTableRow';
+import { toast } from 'react-toastify';
 
 const MyReviewsPage = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -50,7 +51,16 @@ const MyReviewsPage = () => {
             .then(data => {
                 console.log(data)
                 if (data.acknowledged) {
-                    alert('Review Updated')
+                    toast('Review Updated!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
                 }
                 if (data.modifiedCount > 0) {
                     const modified = allReviews.find(review => review._id === rev._id)
@@ -67,7 +77,7 @@ const MyReviewsPage = () => {
         console.log(rev)
         const proceed = window.confirm('Are you sure you want to delete this review?')
         if (proceed) {
-            fetch(`http://localhost:5000/review/${rev.serviceId}?email=${user.email}`,
+            fetch(`https://hemato-care-server.vercel.app/review/${rev.serviceId}?email=${user.email}`,
                 {
                     method: 'DELETE',
                     headers: {
@@ -78,7 +88,16 @@ const MyReviewsPage = () => {
                 .then(data => {
                     console.log(data)
                     if (data.deletedCount > 0) {
-                        alert('Deleted Successfully')
+                        toast('Deleted Successfully!!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            });
                     }
                 })
         }

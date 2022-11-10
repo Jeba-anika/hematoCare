@@ -2,6 +2,7 @@ import { Avatar, Button, Label, Select, Textarea, TextInput } from 'flowbite-rea
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const Reviews = ({ service }) => {
@@ -36,7 +37,16 @@ const Reviews = ({ service }) => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    alert('Review Added Successfully');
+                    toast('Review added Successfully!!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
                     resetField('review');
                     resetField('name');
                     resetField('rating')

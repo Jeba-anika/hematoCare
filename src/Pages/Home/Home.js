@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <div>
             {TitleChange('Home')}
-            <div className='bg-amber-50 flex flex-col lg:flex-row md:flex-row gap-4 p-10 mb-28'>
+            <div className='bg-amber-100 flex flex-col lg:flex-row md:flex-row gap-4 p-10 mb-28'>
                 <div className=' w-1/2 my-auto lg:p-12'>
                     <h2 className='text-7xl font-bold lg:px-10 font-mono text-start mx-auto lg:mx-0 text-slate-800'>Dr.Amy Farah Fowler</h2>
                     <p className='text-justify lg:text-start lg:px-10 font-bold p-4 text-red-400'>Hematologist(Blood Specialist)</p>
