@@ -51,7 +51,7 @@ const Reviews = ({ service }) => {
         .then(data => {
             setAllReviews(data)
         })
-    },[allReviews])
+    },[allReviews, service._id])
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import { Button, Label, Modal, Select, Table, Textarea, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, Select, Table, Textarea } from 'flowbite-react';
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinFill } from "react-icons/ri";
 import React, { useState } from 'react';
@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 
 const ReviewTableRow = ({ rev, handleUpdateReview, handleDeleteReview }) => {
     const [visible, setVisible] = useState(false);
-    const { register, handleSubmit, resetField } = useForm();
+    const { register, handleSubmit} = useForm();
 
     return (
 

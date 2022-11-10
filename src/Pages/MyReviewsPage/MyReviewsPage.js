@@ -2,18 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { TitleChange } from '../../Title/ChangeTitle';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
-import { Button, Label, Modal, Select, Table, Textarea, TextInput } from 'flowbite-react';
-import { FaEdit } from "react-icons/fa";
-import { RiDeleteBinFill } from "react-icons/ri";
-import { useForm } from 'react-hook-form';
+import { Table } from 'flowbite-react';
 import ReviewTableRow from './ReviewTableRow/ReviewTableRow';
 
 const MyReviewsPage = () => {
     const { user, logOut } = useContext(AuthContext);
     const [allReviews, setAllReviews] = useState([]);
-    const [visible, setVisible] = useState(false);
-    const { register, handleSubmit, resetField } = useForm();
-
 
 
     useEffect(() => {
@@ -31,7 +25,7 @@ const MyReviewsPage = () => {
             .then(data => {
                 setAllReviews(data)
             })
-    }, [allReviews])
+    }, [allReviews, logOut, user.email, user.uid])
 
 
     const handleUpdateReview = (event, rev) => {
@@ -65,29 +59,29 @@ const MyReviewsPage = () => {
                     setAllReviews(updatedAllReviews)
                 }
             })
-            
+
     }
 
 
-    const handleDeleteReview = (rev)=>{
+    const handleDeleteReview = (rev) => {
         console.log(rev)
-         const proceed = window.confirm('Are you sure you want to delete this review?')
-         if(proceed){
+        const proceed = window.confirm('Are you sure you want to delete this review?')
+        if (proceed) {
             fetch(`http://localhost:5000/review/${rev.serviceId}?email=${user.email}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('user-token')}`
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if(data.deletedCount>0){
-                    alert('Deleted Successfully')
-                }
-            })
-         }
+                {
+                    method: 'DELETE',
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('user-token')}`
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.deletedCount > 0) {
+                        alert('Deleted Successfully')
+                    }
+                })
+        }
     }
 
 
@@ -103,33 +97,41 @@ const MyReviewsPage = () => {
                 >
                     <Controls visible={false} />
                 </Player>
-                <div className='lg:w-3/4 mx-auto mb-20'>
-                    <h2 className='text-3xl font-serif font-bold text-red-400 mb-6'>See All Your Reviews</h2>
-                    <Table hoverable={true}>
-                        <Table.Head>
-                            <Table.HeadCell>
-                                Service name
-                            </Table.HeadCell>
-                            <Table.HeadCell>
-                                Review
-                            </Table.HeadCell>
-                            <Table.HeadCell>
-                                Rating
-                            </Table.HeadCell>
-                            <Table.HeadCell>
-                                <span className="sr-only">
-                                    Edit
-                                </span>
-                            </Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
+                {
+                    allReviews.length === 0 ?
+                        <div>
+                            <p className='mb-20 mt-4 text-xl font-serif'>No reviews to show. Please add some reviews.</p>
+                        </div>
+                        :
+                        <div className='lg:w-3/4 mx-auto mb-20'>
+                            <h2 className='text-3xl font-serif font-bold text-red-400 mb-6'>See All Your Reviews</h2>
+                            <Table hoverable={true}>
+                                <Table.Head>
+                                    <Table.HeadCell>
+                                        Service name
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Review
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Rating
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        <span className="sr-only">
+                                            Edit
+                                        </span>
+                                    </Table.HeadCell>
+                                </Table.Head>
+                                <Table.Body className="divide-y">
 
-                            {
-                                allReviews.map(rev => <ReviewTableRow key={rev._id} rev={rev} handleUpdateReview={handleUpdateReview} handleDeleteReview={handleDeleteReview}></ReviewTableRow>)
-                            }
-                        </Table.Body>
-                    </Table>
-                </div>
+                                    {
+                                        allReviews.map(rev => <ReviewTableRow key={rev._id} rev={rev} handleUpdateReview={handleUpdateReview} handleDeleteReview={handleDeleteReview}></ReviewTableRow>)
+                                    }
+                                </Table.Body>
+                            </Table>
+                        </div>
+
+                }
             </div>
         </div>
     );
