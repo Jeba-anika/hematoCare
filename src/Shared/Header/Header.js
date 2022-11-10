@@ -76,8 +76,8 @@ const Header = () => {
                             <Navbar.Link >
                                 <Link to='/myreviews'>My Reviews</Link>
                             </Navbar.Link>
-                            <Navbar.Link href="/navbars">
-                                Add Service
+                            <Navbar.Link>
+                                <Link to='/addService'>Add Service</Link>
                             </Navbar.Link>
                         </>
                     }
