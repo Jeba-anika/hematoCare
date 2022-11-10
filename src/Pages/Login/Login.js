@@ -1,7 +1,7 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/login.png'
 
 import { FaGoogle, FaFacebook } from "react-icons/fa";
@@ -13,6 +13,10 @@ import { TitleChange } from '../../Title/ChangeTitle';
 const Login = () => {
     const { register, handleSubmit, resetField } = useForm();
     const { signIn, googleSignIn } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const from = location.state?.from?.pathname || '/'
 
     const handleLogin = (data) => {
         console.log(data)
@@ -26,6 +30,7 @@ const Login = () => {
                 resetField('email')
                 resetField('password')
                 setAuthToken(user)
+                navigate(from, {replace: true})
             })
             .catch(error => console.error(error))
     }
