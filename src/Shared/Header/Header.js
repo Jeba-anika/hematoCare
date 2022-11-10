@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import { AuthContext } from '../../Contexts/AuthProvider';
+import profile from '../../assets/user.png';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -39,7 +40,7 @@ const Header = () => {
                             <Dropdown
                                 arrowIcon={false}
                                 inline={true}
-                                label={<Avatar alt="" img={user?.photoURL ? user?.photoURL : "https://flowbite.com/docs/images/people/profile-picture-5.jpg"} rounded={true} />}
+                                label={<Avatar alt="" img={user?.photoURL ? user?.photoURL : profile} rounded={true} />}
                             >
                                 <Dropdown.Header>
                                     <span className="block text-sm">

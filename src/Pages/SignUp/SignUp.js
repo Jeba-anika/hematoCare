@@ -1,7 +1,7 @@
-import { Button, Label, TextInput } from 'flowbite-react';
-import React, { useContext } from 'react';
+import { Button, Label, Spinner, TextInput } from 'flowbite-react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/login.png'
 
 import { FaGoogle, FaFacebook } from "react-icons/fa";
@@ -10,8 +10,13 @@ import { setAuthToken } from '../../API/auth';
 import { TitleChange } from '../../Title/ChangeTitle';
 
 const SignUp = () => {
+    const [loading, setLoading] = useState(false)
     const { register, handleSubmit, resetField } = useForm();
-    const {createUser, googleSignIn, facebookSignIn} = useContext(AuthContext)
+    const { createUser, googleSignIn, facebookSignIn } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const from = location.state?.from?.pathname || '/'
 
     const handleSignUp = (data) => {
         console.log(data)
@@ -19,33 +24,45 @@ const SignUp = () => {
         const password = data.password;
         console.log(email, password)
         createUser(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user)
-            resetField('name')
-            resetField('email')
-            resetField('password')
-            setAuthToken(user)
-        })
-        .catch(error => console.error(error))
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                resetField('name')
+                resetField('email')
+                resetField('password')
+                setAuthToken(user)
+                setLoading(false)
+                navigate(from, { replace: true })
+            })
+            .catch(error => console.error(error))
     }
 
-    const handleGoogleSignIn = ()=>{
+    const handleGoogleSignIn = () => {
         googleSignIn()
-        .then(result =>{
-            const user =result.user;
-            setAuthToken(user)
-        })
-        .catch(err => console.log(err))
+            .then(result => {
+                const user = result.user;
+                setAuthToken(user)
+                setLoading(false)
+                navigate(from, { replace: true })
+            })
+            .catch(err => console.log(err))
     }
 
-    const handleFacebookSignIn = ()=>{
+    const handleFacebookSignIn = () => {
         facebookSignIn()
-        .then(result =>{
-            const user = result.user;
-            setAuthToken(user)
-        })
-        .catch(err => console.log(err))
+            .then(result => {
+                const user = result.user;
+                setAuthToken(user)
+                setLoading(false)
+                navigate(from, { replace: true })
+            })
+            .catch(err => console.log(err))
+    }
+
+    if (loading) {
+        return <div className="text-center mb-20">
+            <Spinner aria-label="Center-aligned spinner example" />
+        </div>
     }
 
     return (
@@ -56,7 +73,7 @@ const SignUp = () => {
             </div>
             <div className='w-full mx-auto mt-5 md:mt-0 lg:mt-0'>
                 <form onSubmit={handleSubmit(handleSignUp)} className="flex flex-col gap-4 w-full ">
-                    
+
                     <div className='lg:w-1/2 lg:mx-auto md:mx-auto'>
                         <div className="mb-2 block text-start">
                             <Label

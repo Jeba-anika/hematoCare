@@ -1,18 +1,38 @@
-import { Button, Card } from 'flowbite-react';
-import React from 'react';
+import { Button, Card, Spinner } from 'flowbite-react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Link, useLoaderData } from 'react-router-dom';
 import { BsArrowRight } from "react-icons/bs";
 import { TitleChange } from '../../Title/ChangeTitle';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Services = () => {
-    const allServices = useLoaderData()
+    const [loading, setLoading] = useState(true)
+    const [allServices, setAllServices] = useState([])
+
+    useEffect(() => {
+
+        fetch('https://hemato-care-server.vercel.app/services')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setAllServices(data)
+                setLoading(false)
+            })
+    }, [])
+
+    if (loading) {
+        return <div className="text-center mb-20">
+            <Spinner aria-label="Center-aligned spinner example" />
+        </div>
+    }
+
     return (
         <div>
             {TitleChange('Services')}
             <div className='bg-slate-700 p-10 mb-28'>
                 <p className='text-3xl text-amber-100 font-serif font-bold'>All Services</p>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 h-full gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:p-8 h-full gap-10'>
                     {
                         allServices.map(service =>
                             <div key={service._id}>
@@ -40,7 +60,7 @@ const Services = () => {
                                             color="success"
                                             pill={true}
                                         >
-                                           <Link to={`/services/${service._id}`} className='flex flex-row'> View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight></Link>
+                                            <Link to={`/services/${service._id}`} className='flex flex-row'> View Details  <BsArrowRight className='font-bold text-xl ml-3'></BsArrowRight></Link>
                                         </Button>
                                     </div>
                                 </Card>

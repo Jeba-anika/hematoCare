@@ -1,5 +1,5 @@
-import { Button, Label, TextInput } from 'flowbite-react';
-import React, { useContext } from 'react';
+import { Button, Label, Spinner, TextInput } from 'flowbite-react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/login.png'
@@ -11,6 +11,7 @@ import { TitleChange } from '../../Title/ChangeTitle';
 
 
 const Login = () => {
+    const [loading, setLoading] = useState(false)
     const { register, handleSubmit, resetField } = useForm();
     const { signIn, googleSignIn, facebookSignIn } = useContext(AuthContext)
     const navigate = useNavigate()
@@ -19,6 +20,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/'
 
     const handleLogin = (data) => {
+        setLoading(true)
         console.log(data)
         const email = data.email;
         const password = data.password;
@@ -30,28 +32,42 @@ const Login = () => {
                 resetField('email')
                 resetField('password')
                 setAuthToken(user)
-                navigate(from, {replace: true})
+                setLoading(false)
+                navigate(from, { replace: true })
+
             })
             .catch(error => console.error(error))
     }
 
 
     const handleGoogleSignIn = () => {
+        setLoading(true)
         googleSignIn()
             .then(result => {
                 const user = result.user;
                 setAuthToken(user)
+                setLoading(false)
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }
 
-    const handleFacebookSignIn = ()=>{
+    const handleFacebookSignIn = () => {
         facebookSignIn()
-        .then(result =>{
-            const user = result.user;
-            setAuthToken(user)
-        })
-        .catch(err => console.log(err))
+            .then(result => {
+                const user = result.user;
+                setAuthToken(user)
+                setLoading(false)
+                navigate(from, { replace: true })
+            })
+            .catch(err => console.log(err))
+    }
+
+
+    if (loading) {
+        return <div className="text-center mb-20">
+            <Spinner aria-label="Center-aligned spinner example" />
+        </div>
     }
 
 
@@ -76,7 +92,7 @@ const Login = () => {
                                 />
                             </div>
                             <TextInput
-                            
+
                                 {...register('email')}
                                 id="email1"
                                 type="email"

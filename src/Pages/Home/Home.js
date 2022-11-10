@@ -81,18 +81,18 @@ const Home = () => {
             {/* ----------------another section--------------- */}
             <div className=' py-28 w-full px-32 mx-auto bg-slate-100'>
                 <p className='text-3xl text-slate-800 font-serif font-bold mb-4'>Features</p>
-                <div className='flex lg:flex-row gap-6 w-full'>
-                    <div className='flex flex-row border gap-8 rounded-xl py-10 px-4 bg-teal-400 align-items-center w-1/3'>
-                        <div className='w-1/4'>
+                <div className='flex lg:flex-row md:flex-row flex-col gap-6 w-full'>
+                    <div className='flex lg:flex-row border gap-8 rounded-xl lg:py-10 md:py-10 md:px-4 py-4 px-2 lg:px-4 bg-teal-400 align-items-center lg:w-1/3 md:w-1/3 w-full'>
+                        <div className='lg:w-1/4'>
                             <img src={doctorUndraw} alt="" />
                         </div>
-                        <div className=' w-3/4'>
+                        <div className=' lg:w-3/4'>
                             <h2 className='text-2xl font-serif font-bold text-white text-start'>Get World Class Treatment</h2>
 
 
                         </div>
                     </div>
-                    <div className='flex flex-row border gap-8 rounded-xl py-10 px-4 align-items-center w-1/3 bg-red-400'>
+                    <div className='flex lg:flex-row border gap-8 rounded-xl lg:py-10 md:py-10 md:px-4 py-4 px-2 lg:px-4  align-items-center lg:w-1/3 md:w-1/3 w-full bg-red-400'>
                         <div className='w-1/4'>
                             <img src={wallet} alt="" />
                         </div>
@@ -102,7 +102,7 @@ const Home = () => {
 
                         </div>
                     </div>
-                    <div className='flex flex-row border gap-8 rounded-2xl w-1/3 align-items-center py-10 px-4 bg-cyan-500'>
+                    <div className='flex lg:flex-row border gap-8 rounded-xl lg:py-10 md:py-10 md:px-4 py-4 px-2 lg:px-4  align-items-center lg:w-1/3 md:w-1/3 w-full bg-cyan-500'>
                         <div className='w-1/4'>
                             <img src={rating} alt="" />
                         </div>
@@ -118,7 +118,7 @@ const Home = () => {
 
             {/* ---------------------another section--------------- */}
             <div className=' w-full bg-yellow-50 rounded-b-xl'>
-                <div className='flex flex-row gap-8 w-1/2 mx-auto align-items-center py-8'>
+                <div className='flex lg:flex-row md:flex-row flex-col gap-8 w-1/2 mx-auto align-items-center py-8'>
                     <div className='w-1/2'>
                         <Player
                             autoplay
@@ -130,9 +130,9 @@ const Home = () => {
                         </Player>
 
                     </div>
-                    <div className='w-1/2'>
-                        <h2 className='text-4xl font-bold text-start py-8'>Subscribe to our <span className='text-orange-400'>Newsletter</span> to get Update on Services.</h2>
-                        <form className="flex flex-row gap-0 align-items-center">
+                    <div className='lg:w-1/2'>
+                        <h2 className='text-4xl font-bold text-start lg:py-8'>Subscribe to our <span className='text-orange-400'>Newsletter</span> to get Update on Services.</h2>
+                        <form className="flex lg:flex-row gap-0 align-items-center">
                             <div>
                                 <TextInput
                                     id="email1"
