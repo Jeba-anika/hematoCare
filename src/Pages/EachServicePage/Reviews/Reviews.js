@@ -49,7 +49,6 @@ const Reviews = ({ service }) => {
         fetch(`https://hemato-care-server.vercel.app/reviews/${service._id}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setAllReviews(data)
         })
     },[allReviews])

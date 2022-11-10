@@ -29,10 +29,9 @@ const MyReviewsPage = () => {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 setAllReviews(data)
             })
-    }, [user?.uid, user?.email, logOut, allReviews])
+    }, [allReviews])
 
 
     const handleUpdateReview = (event, rev) => {
@@ -66,6 +65,29 @@ const MyReviewsPage = () => {
                     setAllReviews(updatedAllReviews)
                 }
             })
+            
+    }
+
+
+    const handleDeleteReview = (rev)=>{
+        console.log(rev)
+         const proceed = window.confirm('Are you sure you want to delete this review?')
+         if(proceed){
+            fetch(`http://localhost:5000/review/${rev.serviceId}?email=${user.email}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('user-token')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.deletedCount>0){
+                    alert('Deleted Successfully')
+                }
+            })
+         }
     }
 
 
@@ -103,8 +125,7 @@ const MyReviewsPage = () => {
                         <Table.Body className="divide-y">
 
                             {
-                                allReviews.map(rev => <ReviewTableRow rev={rev} handleUpdateReview={handleUpdateReview}></ReviewTableRow>
-                                    )
+                                allReviews.map(rev => <ReviewTableRow key={rev._id} rev={rev} handleUpdateReview={handleUpdateReview} handleDeleteReview={handleDeleteReview}></ReviewTableRow>)
                             }
                         </Table.Body>
                     </Table>

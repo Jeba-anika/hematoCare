@@ -4,7 +4,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const ReviewTableRow = ({ rev, handleUpdateReview }) => {
+const ReviewTableRow = ({ rev, handleUpdateReview, handleDeleteReview }) => {
     const [visible, setVisible] = useState(false);
     const { register, handleSubmit, resetField } = useForm();
 
@@ -96,7 +96,7 @@ const ReviewTableRow = ({ rev, handleUpdateReview }) => {
                             </Modal.Body>
                         </Modal>
                     </React.Fragment>
-                    <Button color="failure">
+                    <Button onClick={()=> handleDeleteReview(rev)} color="failure">
                         <RiDeleteBinFill className="mr-3 h-4 w-4"></RiDeleteBinFill>
                         {' '}Delete
                     </Button>
