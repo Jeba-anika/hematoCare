@@ -12,7 +12,7 @@ import { TitleChange } from '../../Title/ChangeTitle';
 
 const Login = () => {
     const { register, handleSubmit, resetField } = useForm();
-    const { signIn, googleSignIn } = useContext(AuthContext)
+    const { signIn, googleSignIn, facebookSignIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -44,6 +44,17 @@ const Login = () => {
             })
             .catch(err => console.log(err))
     }
+
+    const handleFacebookSignIn = ()=>{
+        facebookSignIn()
+        .then(result =>{
+            const user = result.user;
+            setAuthToken(user)
+        })
+        .catch(err => console.log(err))
+    }
+
+
 
     return (
         <div>
@@ -100,7 +111,7 @@ const Login = () => {
                         <Button onClick={handleGoogleSignIn} color="gray">
                             <FaGoogle></FaGoogle><span className='ml-4'>Google</span>
                         </Button>
-                        <Button color="gray">
+                        <Button onClick={handleFacebookSignIn} color="gray">
                             <FaFacebook></FaFacebook><span className='ml-4'>Facebook</span>
                         </Button>
                     </div>
