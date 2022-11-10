@@ -11,7 +11,7 @@ import { TitleChange } from '../../Title/ChangeTitle';
 
 const SignUp = () => {
     const { register, handleSubmit, resetField } = useForm();
-    const {createUser, googleSignIn} = useContext(AuthContext)
+    const {createUser, googleSignIn, facebookSignIn} = useContext(AuthContext)
 
     const handleSignUp = (data) => {
         console.log(data)
@@ -34,6 +34,15 @@ const SignUp = () => {
         googleSignIn()
         .then(result =>{
             const user =result.user;
+            setAuthToken(user)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const handleFacebookSignIn = ()=>{
+        facebookSignIn()
+        .then(result =>{
+            const user = result.user;
             setAuthToken(user)
         })
         .catch(err => console.log(err))
@@ -105,7 +114,7 @@ const SignUp = () => {
                     <Button onClick={handleGoogleSignIn} color="gray">
                         <FaGoogle></FaGoogle><span className='ml-4'>Google</span>
                     </Button>
-                    <Button color="gray">
+                    <Button onClick={handleFacebookSignIn} color="gray">
                         <FaFacebook></FaFacebook><span className='ml-4'>Facebook</span>
                     </Button>
                 </div>

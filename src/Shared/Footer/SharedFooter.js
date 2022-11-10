@@ -12,45 +12,25 @@ const SharedFooter = () => {
                         <div className='flex'>
                             <Footer.Brand
                                 src={logo}
-                                alt="Flowbite Logo"
+                                alt="HematoCare Logo"
                                 name="HematoCare"
                             />
                             <p className='font-bold text-xl'><span className='text-red-400'>Hemato</span>Care</p>
                         </div>
                         <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
                             <div>
-                                <Footer.Title title="about" />
-                                <Footer.LinkGroup col={true}>
-                                    <Footer.Link href="#">
-                                        Flowbite
-                                    </Footer.Link>
-                                    <Footer.Link href="#">
-                                        Tailwind CSS
-                                    </Footer.Link>
-                                </Footer.LinkGroup>
-                            </div>
-                            <div>
-                                <Footer.Title title="Follow us" />
-                                <Footer.LinkGroup col={true}>
-                                    <Footer.Link href="#">
-                                        Github
-                                    </Footer.Link>
-                                    <Footer.Link href="#">
-                                        Discord
-                                    </Footer.Link>
-                                </Footer.LinkGroup>
+                                <Footer.Title title="About" />
+                                
                             </div>
                             <div>
                                 <Footer.Title title="Legal" />
-                                <Footer.LinkGroup col={true}>
-                                    <Footer.Link href="#">
-                                        Privacy Policy
-                                    </Footer.Link>
-                                    <Footer.Link href="#">
-                                        Terms & Conditions
-                                    </Footer.Link>
-                                </Footer.LinkGroup>
+                                
                             </div>
+                            <div>
+                                <Footer.Title title="Terms and Conditions" />
+                                
+                            </div>
+                            
                         </div>
                     </div>
                     <Footer.Divider />
