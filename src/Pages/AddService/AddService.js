@@ -16,50 +16,50 @@ const AddService = () => {
             rating: serviceRating,
             time: time,
             days: days,
-            name : serviceName,
-            company:  company,
+            name: serviceName,
+            company: company,
             email: email,
             phone: phone,
             address: address,
             about: about
         }
 
-        fetch('https://hemato-care-server.vercel.app/services',{
+        fetch('https://hemato-care-server.vercel.app/services', {
             method: 'POST',
             headers: {
-                'content-type' : 'application/json',
-                authorization : `Bearer ${localStorage.getItem('user-token')}`
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('user-token')}`
             },
             body: JSON.stringify(service)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if(data.acknowledged){
-                toast('Service Added!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast('Service Added!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
                     });
-                
-                resetField('serviceName')
-                resetField('servicePictureURL')
-                resetField('servicePrice')
-                resetField('serviceRating')
-                resetField('company')
-                resetField('email')
-                resetField('phone')
-                resetField('time')
-                resetField('days')
-                resetField('about')
-                resetField('address')
-            }
-        })
+
+                    resetField('serviceName')
+                    resetField('servicePictureURL')
+                    resetField('servicePrice')
+                    resetField('serviceRating')
+                    resetField('company')
+                    resetField('email')
+                    resetField('phone')
+                    resetField('time')
+                    resetField('days')
+                    resetField('about')
+                    resetField('address')
+                }
+            })
     }
 
     return (

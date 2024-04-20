@@ -1,12 +1,13 @@
-import { Button, Label, Spinner, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import login from '../../assets/login.png'
+import login from '../../assets/login.png';
 
-import { FaGoogle, FaFacebook } from "react-icons/fa";
-import { AuthContext } from '../../Contexts/AuthProvider';
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { setAuthToken } from '../../API/auth';
+import { AuthContext } from '../../Contexts/AuthProvider';
+import Loader from '../../Shared/Loader/Loader';
 import { TitleChange } from '../../Title/ChangeTitle';
 
 
@@ -32,11 +33,15 @@ const Login = () => {
                 resetField('email')
                 resetField('password')
                 setAuthToken(user)
-                setLoading(false)
+
                 navigate(from, { replace: true })
+                setLoading(false)
 
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                setLoading(false)
+                console.error(error)
+            })
     }
 
 
@@ -49,10 +54,14 @@ const Login = () => {
                 setLoading(false)
                 navigate(from, { replace: true })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
     }
 
     const handleFacebookSignIn = () => {
+        setLoading(true)
         facebookSignIn()
             .then(result => {
                 const user = result.user;
@@ -60,15 +69,18 @@ const Login = () => {
                 setLoading(false)
                 navigate(from, { replace: true })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
     }
 
 
-    if (loading) {
-        return <div className="text-center mb-20">
-            <Spinner aria-label="Center-aligned spinner example" />
-        </div>
-    }
+    // if (loading) {
+    //     return <div className="text-center mb-20">
+    //         <Spinner aria-label="Center-aligned spinner example" />
+    //     </div>
+    // }
 
 
 
@@ -116,8 +128,13 @@ const Login = () => {
                             />
                         </div>
 
-                        <Button className='lg:w-1/2 lg:mx-auto md:w-1/2 md:mx-auto ' color='failure' pill={true} type="submit">
-                            Login
+                        <Button disabled={loading} className='lg:w-1/2 lg:mx-auto md:w-1/2 md:mx-auto ' color='failure' pill={true} type="submit">
+                            <div className="flex gap-6">
+                                Login
+                                {
+                                    loading && <Loader />
+                                }
+                            </div>
                         </Button>
                     </form>
                     <p className='mt-4'>Don't have an account? Please <button className='hover:border-b font-bold hover:border-red-500'><Link to='/signup'>SignUp</Link></button></p>

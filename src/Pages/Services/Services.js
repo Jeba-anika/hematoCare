@@ -1,10 +1,10 @@
-import { Button, Card, Spinner } from 'flowbite-react';
-import React, { useContext, useEffect, useState } from 'react';
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Button, Card } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
 import { BsArrowRight } from "react-icons/bs";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { Link } from 'react-router-dom';
+import Loader from '../../Shared/Loader/Loader';
 import { TitleChange } from '../../Title/ChangeTitle';
-import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Services = () => {
     const [loading, setLoading] = useState(true)
@@ -22,9 +22,7 @@ const Services = () => {
     }, [])
 
     if (loading) {
-        return <div className="text-center mb-20">
-            <Spinner aria-label="Center-aligned spinner example" />
-        </div>
+        return <Loader />
     }
 
     return (
